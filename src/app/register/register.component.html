@@ -1,0 +1,113 @@
+<div
+  class="h-screen flex justify-content-center align-items-center"
+  style="
+    background: #5a3ec7;
+    background: linear-gradient(
+      69deg,
+      var(--p-primary-900) 0%,
+      var(--p-primary-50) 100%
+    );
+  "
+>
+  <div
+    class="grid nested-grid grid-nogutter h-30rem border-round-2xl overflow-hidden shadow-7"
+    style="width: 60rem"
+  >
+    <div class="col-5 h-full surface-700">
+      <div
+        class="grid nested-grid grid-nogutter p-4 bg-white justify-content-center"
+      >
+        <div class="col-12 h-4rem">
+          <p class="text-2xl m-0 text-primary-900">
+            Hello!<br />
+            <span class="text-3xl font-bold">Welcome</span>
+          </p>
+        </div>
+        <div class="col-9 h-23rem">
+          <form
+            [formGroup]="registerForm"
+            (ngSubmit)="register()"
+            class="grid grid-nogutter h-full justify-content-center"
+          >
+            <div class="col-12">
+              <p class="text-color text-center text-2xl">
+                <span class="text-primary-900 font-bold">Register </span>your
+                account
+              </p>
+            </div>
+            <div class="col-12">
+              <input
+                pInputText
+                type="text"
+                placeholder="Username"
+                formControlName="username"
+                style="border-bottom: 1px solid"
+                class="surface-border"
+              />
+            </div>
+            <div class="col-12">
+              <input
+                pInputText
+                type="email"
+                placeholder="Email"
+                formControlName="email"
+                style="border-bottom: 1px solid"
+                class="surface-border"
+              />
+            </div>
+            <div class="col-12">
+              <p-password
+                [toggleMask]="true"
+                placeholder="Password"
+                formControlName="password"
+                styleClass="border-bottom-1 surface-border"
+              />
+            </div>
+            <div class="col-12">
+              <p-password
+                [toggleMask]="true"
+                placeholder="Confirm Password"
+                formControlName="confirmPassword"
+                styleClass="border-bottom-1 surface-border"
+              />
+            </div>
+            <div class="col-12 text-right">
+              <p class="text-primary-900 cursor-pointer">forgot password?</p>
+            </div>
+            <div class="col-8">
+              <p-button
+                label="Register"
+                type="submit"
+                [disabled]="!registerForm.valid"
+                styleClass="w-10rem border-round"
+              />
+            </div>
+            <div class="col-12 text-center">
+              <p
+                class="text-primary-900 cursor-pointer"
+                routerLink="/login"
+                >Already have an account?</p
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div
+      class="col-7 h-full p-7"
+      style="
+        background: linear-gradient(
+          40deg,
+          var(--p-primary-900) 0%,
+          var(--p-primary-50) 100%
+        );
+      "
+    >
+      <img
+        src="register.svg"
+        alt="Login Image"
+        class="h-full w-full object-cover"
+      />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,209 @@
+<div class="min-h-screen">
+
+  <!-- Header/Navigation -->
+  <header class="surface-0 shadow-2 px-6 py-3 sticky top-0 z-5">
+    <div class="flex align-items-center justify-content-between max-w-screen-xl mx-auto">
+      <div class="flex align-items-center">
+        <i class="pi pi-box text-primary text-3xl mr-3"></i>
+        <span class="text-2xl font-bold text-900">Inventory Card</span>
+      </div>
+      <div class="flex gap-2">
+        <p-button
+          label="Sign In"
+          styleClass="border-round"
+          (click)="navigateToLogin()">
+        </p-button>
+        <p-button
+          label="Sign Up"
+          styleClass="border-round"
+          (click)="navigateToRegister()">
+        </p-button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="surface-ground px-6 py-8">
+    <div class="max-w-screen-xl mx-auto">
+      <div class="grid">
+        <div class="col-12 lg:col-6 flex flex-column justify-content-center">
+          <p-tag severity="info" value="NEW" class="mb-4 w-max"></p-tag>
+          <h1 class="text-6xl font-bold text-900 line-height-2 mb-4">
+            Manage your
+            <span class="text-primary">Inventory</span>
+            intelligently
+          </h1>
+          <p class="text-xl text-700 line-height-3 mb-6">
+            The most complete platform for inventory control.
+            Optimize your processes, reduce costs and maximize your business efficiency.
+          </p>
+          <div class="flex flex-wrap gap-3 mb-6">
+            <p-button
+              label="Start Free"
+              icon="pi pi-arrow-right"
+              iconPos="right"
+              size="large"
+              styleClass="border-round"
+              (click)="navigateToRegister()">
+            </p-button>
+          </div>
+          <div class="flex align-items-center gap-4 text-600">
+            <div class="flex align-items-center gap-2">
+              <i class="pi pi-check-circle text-green-500"></i>
+              <span>No credit card required</span>
+            </div>
+            <div class="flex align-items-center gap-2">
+              <i class="pi pi-check-circle text-green-500"></i>
+              <span>5-minute setup</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 lg:col-6 flex align-items-center justify-content-center">
+          <div class="bg-primary shadow-4 border-round-xl p-6 w-full max-w-28rem">
+            <div class="text-center mb-4">
+              <i class="pi pi-chart-bar text-6xl text-white"></i>
+            </div>
+            <div class="grid text-center">
+              <div class="col-4">
+                <div class="text-2xl font-bold text-900 text-white">1.2K+</div>
+                <div class="text-600 text-sm text-white">Products</div>
+              </div>
+              <div class="col-4">
+                <div class="text-2xl font-bold text-900 text-white">98%</div>
+                <div class="text-600 text-sm text-white">Accuracy</div>
+              </div>
+              <div class="col-4">
+                <div class="text-2xl font-bold text-900 text-white">24/7</div>
+                <div class="text-600 text-sm text-white">Monitoring</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="px-6 py-8">
+    <div class="max-w-screen-xl mx-auto">
+      <div class="text-center mb-8">
+        <h2 class="text-4xl font-bold text-900 mb-4">Key Features</h2>
+        <p class="text-xl text-600 max-w-2xl mx-auto">
+          Discover all the tools you need to manage your inventory professionally
+        </p>
+      </div>
+
+      <div class="grid">
+        <div class="col-12 md:col-6 lg:col-3" *ngFor="let feature of features">
+          <p-card class="h-full border-none shadow-1 hover:shadow-3 transition-all transition-duration-300">
+            <div class="text-center">
+              <div class="inline-flex align-items-center justify-content-center w-4rem h-4rem border-circle mb-4"
+                   [ngClass]="'bg-' + feature.color + '-50'">
+                <i [class]="feature.icon + ' text-2xl text-white'"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-900 mb-3">{{ feature.title }}</h3>
+              <p class="text-600 line-height-3 m-0">{{ feature.description }}</p>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="surface-50 px-6 py-8">
+    <div class="max-w-screen-xl mx-auto">
+      <div class="grid align-items-center">
+        <div class="col-12 lg:col-6">
+          <h2 class="text-4xl font-bold text-900 mb-4">
+            Everything you need in one platform
+          </h2>
+          <p class="text-xl text-600 mb-6">
+            Simplify your inventory management with our integrated tools
+          </p>
+          <div class="grid">
+            <div class="col-12 md:col-6" *ngFor="let benefit of benefits">
+              <div class="flex align-items-center mb-3">
+                <i class="pi pi-check text-green-500 mr-3"></i>
+                <span class="text-900 font-medium">{{ benefit }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 lg:col-6">
+          <div class="text-center">
+            <div class="inline-flex align-items-center justify-content-center w-20rem h-20rem border-circle bg-primary-50">
+              <i class="pi pi-warehouse text-8xl text-white"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="px-6 py-8">
+    <div class="max-w-screen-xl mx-auto">
+      <div class="text-center mb-6">
+        <h2 class="text-3xl font-bold text-900 mb-4">Numbers that speak for themselves</h2>
+      </div>
+      <div class="grid">
+        <div class="col-12 md:col-3 text-center">
+          <div class="text-4xl font-bold text-primary mb-2">5,000+</div>
+          <div class="text-600 text-lg">Active companies</div>
+        </div>
+        <div class="col-12 md:col-3 text-center">
+          <div class="text-4xl font-bold text-primary mb-2">1M+</div>
+          <div class="text-600 text-lg">Products managed</div>
+        </div>
+        <div class="col-12 md:col-3 text-center">
+          <div class="text-4xl font-bold text-primary mb-2">99.9%</div>
+          <div class="text-600 text-lg">Uptime</div>
+        </div>
+        <div class="col-12 md:col-3 text-center">
+          <div class="text-4xl font-bold text-primary mb-2">24/7</div>
+          <div class="text-600 text-lg">Technical support</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="bg-primary px-6 py-8">
+    <div class="max-w-screen-xl mx-auto text-center">
+      <h2 class="text-4xl font-bold text-white mb-4">
+        Ready to transform your inventory?
+      </h2>
+      <p class="text-xl mb-6 max-w-2xl mx-auto">
+        Join thousands of companies that are already optimizing their inventory management with our platform
+      </p>
+      <div class="flex flex-wrap justify-content-center gap-3">
+        <p-button
+          label="Get Started Now"
+          icon="pi pi-arrow-right"
+          iconPos="right"
+          severity="secondary"
+          size="large"
+          styleClass="border-round"
+          (click)="navigateToRegister()">
+        </p-button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="surface-100 px-6 py-6">
+    <div class="max-w-screen-xl mx-auto">
+      <div class="flex flex-wrap justify-content-between align-items-center">
+        <div class="flex align-items-center mb-3 lg:mb-0">
+          <i class="pi pi-box text-primary text-2xl mr-2"></i>
+          <span class="text-xl font-bold text-900">Inventory Card</span>
+        </div>
+        <div class="text-600">
+          © 2024 Inventory Card. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
