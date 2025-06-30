@@ -1,28 +1,12 @@
 <div
   class="h-screen flex justify-content-center align-items-center"
-  style="
-    background: #5a3ec7;
-    background: linear-gradient(
-      69deg,
-      var(--p-primary-900) 0%,
-      var(--p-primary-50) 100%
-    );
-  "
+  style="background: var(--p-primary-1000)"
 >
   <div
     class="grid nested-grid grid-nogutter h-30rem border-round-2xl overflow-hidden shadow-7"
     style="width: 60rem"
   >
-    <div
-      class="col-7 h-full p-7"
-      style="
-        background: linear-gradient(
-          40deg,
-          var(--p-primary-900) 0%,
-          var(--p-primary-50) 100%
-        );
-      "
-    >
+    <div class="col-7 h-full p-7" style="background: var(--p-primary-1000)">
       <img
         src="login.svg"
         alt="Login Image"
@@ -40,7 +24,11 @@
           </p>
         </div>
         <div class="col-9 h-23rem">
-          <form [formGroup]="loginForm" (ngSubmit)="login()" class="grid grid-nogutter h-full justify-content-center">
+          <form
+            [formGroup]="loginForm"
+            (ngSubmit)="login()"
+            class="grid grid-nogutter h-full justify-content-center"
+          >
             <div class="col-12">
               <p class="text-color text-center text-2xl">
                 <span class="text-primary-900 font-bold">Login </span>your
@@ -60,6 +48,7 @@
             <div class="col-12">
               <p-password
                 [toggleMask]="true"
+                [feedback]="false"
                 placeholder="Password"
                 formControlName="password"
                 styleClass="border-bottom-1 surface-border"

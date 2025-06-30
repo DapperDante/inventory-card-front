@@ -1,0 +1,53 @@
+<p-dialog
+  [modal]="true"
+  [(visible)]="visible"
+  styleClass="w-25rem border-none p-4"
+>
+  <ng-template #headless>
+    <form [formGroup]="productForm" (ngSubmit)="save()">
+      <div class="grid nested-grid">
+        <div class="col-12 text-primary text-2xl font-bold text-center">
+          {{ isEditMode() ? 'Edit product' : 'Add product' }}
+        </div>
+        <div class="col-12">
+          <input
+            pInputText
+            autocomplete="off"
+            placeholder="Name"
+            formControlName="name"
+            style="border-bottom: 1px solid"
+            class="surface-border w-full"
+          />
+        </div>
+        <div class="col-12">
+          <input
+            pInputText
+            autocomplete="off"
+            placeholder="Description"
+            formControlName="description"
+            style="border-bottom: 1px solid"
+            class="surface-border w-full"
+          />
+        </div>
+        <div class="col-12">
+          <div class="grid">
+            <p-button
+              label="Cancel"
+              severity="secondary"
+              (click)="close()"
+              class="col-6"
+              styleClass="border-round w-full"
+            />
+            <p-button
+              label="Save"
+              type="submit"
+              [disabled]="!productForm.valid"
+              styleClass="border-round w-full"
+              class="col-6"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</p-dialog>

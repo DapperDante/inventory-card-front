@@ -1,0 +1,8 @@
+@if(cards$ | async; as cards){
+  <app-items-grid [items]="cards" (itemSelected)="accessCard($event)"/>
+}
+<app-form-trigger [(visible)]="cardFormVisible">
+  <ng-template #formTemplate>
+    <app-card-form [isEditMode]="false" [(visible)]="cardFormVisible" (form)="addCard($event)"/>
+  </ng-template>
+</app-form-trigger>

@@ -16,6 +16,7 @@ const MyPreset = definePreset(Aura, {
       800: '#6448CE',
       900: '#5E42CA',
       950: '#5B3FC8',
+      1000: 'linear-gradient(40deg,var(--p-primary-900) 0%,var(--p-primary-50) 100%)'
     },
     colorScheme: {
       light: {

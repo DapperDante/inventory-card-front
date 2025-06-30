@@ -1,0 +1,81 @@
+<p-dialog
+  [modal]="true"
+  [(visible)]="visible"
+  styleClass="w-25rem border-none p-4"
+>
+  <ng-template #headless>
+    @if(resources$ | async; as resources){
+    <form [formGroup]="cardForm" (ngSubmit)="save()">
+      <div class="grid nested-grid">
+        <div class="col-12 text-primary text-2xl font-bold text-center">
+          {{ isEditMode() ? "Edit inventory card" : "Add inventory card" }}
+        </div>
+        <div class="col-12">
+          <input
+            pInputText
+            autocomplete="off"
+            placeholder="Name"
+            formControlName="name"
+            style="border-bottom: 1px solid"
+            class="surface-border w-full"
+          />
+        </div>
+        <div class="col-12">
+          <input
+            pInputText
+            autocomplete="off"
+            placeholder="Description"
+            formControlName="description"
+            style="border-bottom: 1px solid"
+            class="surface-border w-full"
+          />
+        </div>
+        <div class="col-12">
+          <div class="grid">
+            <p-select
+              class="col-6"
+              [options]="resources[0]"
+              formControlName="method"
+              placeholder="Select method"
+              optionLabel="name"
+            />
+            <p-select
+              class="col-6"
+              [options]="resources[1]"
+              formControlName="currency"
+              placeholder="Select currency"
+              optionLabel="name"
+            />
+          </div>
+          <p-datepicker
+            view="month"
+            dateFormat="mm/yy"
+            [readonlyInput]="true"
+            formControlName="date"
+            placeholder="Select date"
+            styleClass="border-bottom-1 surface-border col-6"
+          />
+        </div>
+        <div class="col-12">
+          <div class="grid">
+            <p-button
+              label="Cancel"
+              severity="secondary"
+              (click)="close()"
+              class="col-6"
+              styleClass="border-round w-full"
+            />
+            <p-button
+              label="Save"
+              type="submit"
+              [disabled]="!cardForm.valid"
+              styleClass="border-round w-full"
+              class="col-6"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+    }
+  </ng-template>
+</p-dialog>

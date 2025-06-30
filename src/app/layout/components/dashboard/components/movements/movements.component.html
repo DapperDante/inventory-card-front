@@ -1,0 +1,35 @@
+@if(movements$ | async; as movements){
+<p-table [value]="movements" styleClass="p-5" [size]="'small'" showGridlines>
+  <ng-template #header>
+    <tr>
+      <th>Date</th>
+      <th>Movement Concept</th>
+      <th>Quantity</th>
+      <th>Unit Cost</th>
+      <th>Stock</th>
+      <th>Debit</th>
+      <th>Credit</th>
+      <th>Final Balance</th>
+      <th>Created By</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-movement>
+    <tr>
+      <td>{{ movement.date }}</td>
+      <td>{{ movement.concept }}</td>
+      <td>{{ movement.quantity }}</td>
+      <td>{{ movement.unit_cost }}</td>
+      <td>{{ movement.stock }}</td>
+      <td>{{ movement.debit }}</td>
+      <td>{{ movement.credit }}</td>
+      <td>{{ movement.final_balance }}</td>
+      <td>{{ movement.created_by }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+}
+<app-form-trigger [(visible)]="movementFormVisible">
+  <ng-template #formTemplate>
+    <app-movement-form [isEditMode]="false" [(visible)]="movementFormVisible" (form)="addMovement($event)"/>
+  </ng-template>
+</app-form-trigger>

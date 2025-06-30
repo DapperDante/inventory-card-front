@@ -1,0 +1,44 @@
+<p-dialog
+  [modal]="true"
+  [(visible)]="visible"
+  styleClass="w-25rem border-none p-4"
+>
+  <ng-template #headless>
+    <form [formGroup]="companyForm" (ngSubmit)="save()">
+      <div class="grid nested-grid">
+        <div class="col-12 text-primary text-2xl font-bold text-center">
+          {{ isEditMode() ? 'Edit company' : 'Add company' }}
+        </div>
+        <div class="col-12">
+          <input
+            pInputText
+            id="email"
+            autocomplete="off"
+            placeholder="Name"
+            formControlName="name"
+            style="border-bottom: 1px solid"
+            class="surface-border w-full"
+          />
+        </div>
+        <div class="col-12">
+          <div class="grid">
+            <p-button
+              label="Cancel"
+              severity="secondary"
+              (click)="close()"
+              class="col-6"
+              styleClass="border-round w-full"
+            />
+            <p-button
+              label="Save"
+              type="submit"
+              [disabled]="!companyForm.valid"
+              styleClass="border-round w-full"
+              class="col-6"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</p-dialog>

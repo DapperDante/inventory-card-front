@@ -1,0 +1,20 @@
+<div class="grid m-4 gap-5">
+  @for(item of items(); track item.id){
+    <div
+      class="col-fixed h-15rem w-15rem border-round-lg hover:shadow-7 shadow-3 cursor-pointer relative overflow-hidden"
+      (click)="onItemSelected(item.id)"
+    >
+      <div
+        class="text-overflow-ellipsis h-full w-10rem p-1 text-4xl font-bold text-primary vertical-align-text-bottom overflow-hidden line-height-1"
+      >
+        {{ item.title }}
+      </div>
+      <img
+        [src]="item.background"
+        alt="background"
+        class="absolute bottom-0 right-0 opacity-10"
+        style="transform: translateX(45%)"
+      />
+    </div>
+  }
+</div>

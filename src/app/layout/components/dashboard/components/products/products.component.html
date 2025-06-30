@@ -1,0 +1,8 @@
+@if(products$ | async; as products){
+  <app-items-grid [items]="products" (itemSelected)="accessProduct($event)"/>
+}
+<app-form-trigger [(visible)]="productFormVisible">
+  <ng-template #formTemplate>
+    <app-product-form [isEditMode]="false" [(visible)]="productFormVisible" (form)="addProduct($event)"/>
+  </ng-template>
+</app-form-trigger>

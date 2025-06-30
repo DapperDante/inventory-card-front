@@ -1,0 +1,8 @@
+@if(companies$ | async; as companies) {
+  <app-items-grid [items]="companies" (itemSelected)="accessCompany($event)"/>
+}
+<app-form-trigger [(visible)]="companyFormVisible">
+  <ng-template #formTemplate>
+    <app-company-form [isEditMode]="false" [(visible)]="companyFormVisible" (form)="addCompany($event)"/>
+  </ng-template>
+</app-form-trigger>

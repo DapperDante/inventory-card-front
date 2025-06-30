@@ -1,5 +1,5 @@
 <div class="card">
-  <p-menubar [model]="items">
+  <p-menubar [model]="itemsTopbar">
     <ng-template #item let-item let-root="root">
       <a pRipple class="flex items-center p-menubar-item-link">
         <span>{{ item.label }}</span>
@@ -28,15 +28,11 @@
           style="border-bottom: 1px solid"
           class="surface-border"
         />
-        <p-avatar image="user.svg" shape="circle" />
+        <div (click)="menu.toggle($event)" class="cursor-pointer">
+          <p-avatar image="user.svg" shape="circle"/>
+        </div>
       </div>
     </ng-template>
   </p-menubar>
 </div>
-<div class="grid m-4">
-  <div
-    class="col-1 bg-primary h-9rem border-round-lg flex justify-content-center align-items-center cursor-pointer hover:shadow-7 shadow-3"
-  >
-    <i class="pi pi-plus text-5xl"></i>
-  </div>
-</div>
+<p-menu #menu [model]="itemsAvatar" [popup]="true" />
