@@ -7,6 +7,10 @@ import { SelectModule } from 'primeng/select';
 import { ResourceService } from '../../../../../../../service/resource.service';
 import { map, Observable } from 'rxjs';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { Concept } from '../../../../../../../interface/resource.interface';
+import { MovementConceptId } from '../../../../../../../interface/movement.interface';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-movement-form',
@@ -17,6 +21,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     SelectModule,
     ButtonModule,
     InputNumberModule,
+    ConfirmDialogModule,
   ],
   templateUrl: './movement-form.component.html',
   styles: ``,
@@ -24,19 +29,23 @@ import { InputNumberModule } from 'primeng/inputnumber';
 export class MovementFormComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private resource = inject(ResourceService);
-
-  resources$!: Observable<any[]>;
+  private confirmationService = inject(ConfirmationService);
+  INCOME_CONCEPTS = new Set([
+    MovementConceptId.PURCHASE,
+    MovementConceptId.INITIAL_BALANCE
+  ]);
+  resources$!: Observable<Concept[]>;
   visible = model<boolean>(false);
   form = output<{
-    quantity: number,
-    unitCost: number,
-    concept: number
+    quantity: number;
+    unitCost: number;
+    concept: Concept;
   }>();
   isEditMode = input<boolean>(false);
-  cardForm = this.formBuilder.group({
+  movementForm = this.formBuilder.group({
     quantity: [1, [Validators.required, Validators.min(1)]],
     unitCost: [0, [Validators.required, Validators.min(0)]],
-    concept: [null, [Validators.required]],
+    concept: [{ id: 0, name: '', description: '' }, [Validators.required]],
   });
 
   ngOnInit(): void {
@@ -46,13 +55,34 @@ export class MovementFormComponent implements OnInit {
   }
   close() {
     this.visible.set(false);
+    console.log(this.movementForm.get('concept')?.value);
   }
   save() {
-    const movement = {
-      quantity: this.cardForm.value.quantity!,
-      unitCost: this.cardForm.value.unitCost!,
-      concept: this.cardForm.value.concept!,
-    };
-    this.form.emit(movement);
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to save this movement?',
+      header: 'Confirm',
+      accept: () => {
+        const movement = {
+          quantity: this.movementForm.value.quantity!,
+          unitCost: this.movementForm.value.unitCost!,
+          concept: this.movementForm.value.concept!,
+        };
+        this.form.emit(movement);
+      }
+    })
+  }
+  hiddenInputQuantity(): string {
+    const conceptId = this.movementForm.get('concept')?.value?.id;
+    if(conceptId) {
+      return '';
+    }
+    return 'hidden';
+  }
+  hiddenInputUnitCost(): string{
+    const conceptId = this.movementForm.get('concept')?.value?.id;
+    if(conceptId && this.INCOME_CONCEPTS.has(conceptId)) {
+      return '';
+    }
+    return 'hidden';
   }
 }

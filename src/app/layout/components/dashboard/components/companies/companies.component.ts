@@ -38,7 +38,7 @@ export class CompaniesComponent implements OnInit{
   ngOnInit() {
     this.companies$ = this.companyService.getCompanies()
     .pipe(
-      map(res => CompanyAdapter.toGridItems(res.result))
+      map(res => res.result ? CompanyAdapter.toGridItems(res.result) : [])
     );
   }
   addCompany(data: { name: string }) {

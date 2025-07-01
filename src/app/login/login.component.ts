@@ -6,7 +6,6 @@ import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { NotificationService } from '../service/notification.service';
 import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
-
 @Component({
   selector: 'app-login',
   imports: [InputTextModule, ButtonModule, PasswordModule, RouterLink, ReactiveFormsModule],

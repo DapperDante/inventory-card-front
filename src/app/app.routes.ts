@@ -5,6 +5,7 @@ import { CompanyService } from './service/company.service';
 import { ProductService } from './service/product.service';
 import { CardService } from './service/card.service';
 import { MovementService } from './service/movement.service';
+import { FileService } from './service/file.service';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,7 @@ export const routes: Routes = [
   {
     path: 'home',
     loadComponent: () => import('./layout/layout.component').then(c => c.LayoutComponent),
+    providers: [FileService],
     children: [
       {
         path: 'dashboard',

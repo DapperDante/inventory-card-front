@@ -1,7 +1,7 @@
-import { concept, currency, method } from "../../interface/resource.interface";
+import { Concept, Currency, Method } from "../../interface/resource.interface";
 
 export class ResourceAdapter {
-  static MethodsToSelectOptions(methods: method[]){
+  static MethodsToSelectOptions(methods: Method[]){
     return methods.map((method)=>{
       return {
         id: method.id,
@@ -10,7 +10,7 @@ export class ResourceAdapter {
       }
     })
   }
-  static ConceptsToSelectOptions(concepts: concept[]){
+  static ConceptsToSelectOptions(concepts: Concept[]){
     return concepts.map((concept)=>{
       return {
         id: concept.id,
@@ -19,7 +19,7 @@ export class ResourceAdapter {
       }
     })
   }
-  static CurrenciesToSelectOptions(currencies: currency[]){
+  static CurrenciesToSelectOptions(currencies: Currency[]){
     return currencies.map((currency)=>{
       return {
         id: currency.id,
