@@ -33,10 +33,11 @@ export class TopbarComponent implements OnInit {
         command: () => {
           this.route.navigate(['/']);
         },
+        styleClass: 'bg-primary border-round',
       },
-      {
-        label: 'Projects',
-      },
+      // {
+      //   label: 'Projects',
+      // },
     ];
     this.itemsAvatar = [
       {

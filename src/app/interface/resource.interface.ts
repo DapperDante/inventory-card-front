@@ -1,24 +1,24 @@
-export interface method{
+export interface Method{
   id: number,
   name: string,
   description: string
 };
-export interface methodsRequest{
-  result: method[]
+export interface MethodsRequest{
+  result: Method[]
 };
-export interface currency{
+export interface Currency{
   id: number,
   name: string,
   code: string
 };
-export interface currenciesRequest{
-  result: currency[]
+export interface CurrenciesRequest{
+  result: Currency[]
 };
-export interface concept{
+export interface Concept{
   id: number,
   name: string,
   description: string
 };
-export interface conceptsRequest{
-  result: concept[]
+export interface ConceptsRequest{
+  result: Concept[]
 };

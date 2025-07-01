@@ -13,11 +13,12 @@ export class CookieHandleService {
     this.cookie.set('token', token, {
       expires: 1,
       secure: true,
-      sameSite: 'Strict'
+      sameSite: 'Strict',
+      path: '/',
     });
   }
   deleteToken(): void {
-    this.cookie.delete('token');
+    this.cookie.delete('token', '/');
   }
   getToken(): string {
     return this.cookie.get('token');

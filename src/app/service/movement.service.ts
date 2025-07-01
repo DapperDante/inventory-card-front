@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { IS_PUBLIC } from '../token/http-context-token';
-import { MovementRequest } from '../interface/movement.interface';
+import { BalanceRequest, MovementRequest } from '../interface/movement.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,11 @@ export class MovementService {
   private API_URL = `${environment.API}/movement`;
   getMovements(): Observable<MovementRequest> {
     return this.http.get<MovementRequest>(`${this.API_URL}/all`, {
+      context: new HttpContext().set(IS_PUBLIC, false),
+    });
+  }
+  getBalances(): Observable<BalanceRequest> {
+    return this.http.get<BalanceRequest>(`${this.API_URL}/balance`, {
       context: new HttpContext().set(IS_PUBLIC, false),
     });
   }
