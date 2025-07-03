@@ -7,7 +7,7 @@ export const backendInterceptor: HttpInterceptorFn = (req, next) => {
   if(req.context.get(IS_PUBLIC)){
     return next(req);
   }
-  const token = inject(CookieHandleService).getToken();
+  const token = inject(CookieHandleService).token();
   const newReq = req.clone({
     headers: req.headers.set('Authorization', `Bearer ${token}`)
   })

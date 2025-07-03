@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment.development';
 import { Observable, tap } from 'rxjs';
 import { CookieHandleService } from './cookie-handle.service';
 import { IS_PUBLIC } from '../token/http-context-token';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { IS_PUBLIC } from '../token/http-context-token';
 export class AuthService {
   private http = inject(HttpClient);
   private cookie = inject(CookieHandleService);
+  private router = inject(Router);
   private readonly API_URL = `${environment.API}/user`;
 
   login(username: string, password: string): Observable<any> {
@@ -22,7 +24,7 @@ export class AuthService {
     .pipe(
       tap((res: any) => {
         if(res.token){
-          this.cookie.addToken(res.token);
+          this.cookie.setToken(res.token);
         }
       })
     );
@@ -38,15 +40,16 @@ export class AuthService {
     .pipe(
       tap((res: any) => {
         if(res.token){
-          this.cookie.addToken(res.token);
+          this.cookie.setToken(res.token);
         }
       })
     );
   }
   hasToken(): boolean {
-    return this.cookie.hasToken();
+    return this.cookie.isAuthenticated();
   }
   logout(): void {
-    this.cookie.deleteToken();
+    this.cookie.clearToken();
+    this.router.navigate(['/login']);
   }
 }

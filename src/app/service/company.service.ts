@@ -22,7 +22,7 @@ export class CompanyService {
     .pipe(
       tap((res) => {
         if(res.token){
-          this.cookie.addToken(res.token);
+          this.cookie.setToken(res.token);
         }
       })
     );
@@ -38,7 +38,7 @@ export class CompanyService {
     .pipe(
       tap((res) => {
         if(res.token){
-          this.cookie.addToken(res.token);
+          this.cookie.setToken(res.token);
         }
       })
     )
