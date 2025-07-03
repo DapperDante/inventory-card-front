@@ -7,7 +7,11 @@ import {
 } from '../interface/util.interface';
 import { FileAdapter } from '../class/adapter/file-adapter';
 import * as Papa from 'papaparse';
-import * as XLSX from 'xlsx';
+import * as XLSX from 'xlsx-js-style';
+import { XLSXMatrixBuilder } from '../class/builder/xlsx-matrix-builder';
+import { XLSXFormattingBuilder } from '../class/builder/xlsx-formatting-builder';
+import { XLSXStylingStrategy } from '../class/strategy/xlsx-styling-strategy';
+import { XLSXStyleDirector } from '../class/director/xlsx-style-director';
 
 @Injectable({
   providedIn: 'root',
@@ -23,138 +27,78 @@ export class FileService {
     a.click();
     window.URL.revokeObjectURL(url);
   }
-  exportTableToXLSX(
-    tableMovements: TableMovement[],
-    tableBalance: TableBalance[]
-  ) {
+
+  exportTableToXLSX(tableMovements: TableMovement[], tableBalance: TableBalance[]) {
     const workbook = XLSX.utils.book_new();
+    // Convert the table data to the required format for XLSX
+    const movements = FileAdapter.toXLSXMovements(tableMovements);
+    const balances = FileAdapter.toXLSXBalances(tableBalance);
     // transform the data into a structured format
-    const data = this.createStructuredData(tableMovements, tableBalance);
-    console.log(data);
+    const data = this.createStructuredData(movements, balances);
     // Create a worksheet from the structured data as an array of arrays
     const worksheet = XLSX.utils.aoa_to_sheet(data);
     // Apply formatting and styling to the worksheet
-    this.applyWorksheetFormatting(worksheet, data.length);
-    this.applyWorksheetStyling(worksheet, data[0].length - 1, data.length - 1);
+    this.applyWorksheetFormatting(worksheet, data[0].length, data.length);
+    this.applyWorksheetStyling(worksheet, data[0].length, data.length);
     // Set the worksheet name and append it to the workbook
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Movements');
     XLSX.writeFile(workbook, 'movements.xlsx');
   }
-  createStructuredData(
-    tableMovements: TableMovement[],
-    tableBalance: TableBalance[]
-  ): any[] {
-    const headersMovement = [
-      ['ITEM', '', 'UNIT PRICE', '', '', 'VALUES', '', ''],
-      [
-        'ENTRIES',
-        'EXITS',
-        'STOCK',
-        'ACQUISITION',
-        'DEBIT',
-        'CREDIT',
-        'BALANCE',
-      ],
-    ];
-    const headersBalance = [['AVAILABLE STOCK', 'UNIT PRICE', 'FINAL BALANCE']];
-    const movementRows: any[][] = [];
-    tableMovements.forEach((movement) => {
-      const row = [
-        movement.income,
-        movement.expense,
-        movement.stock,
-        movement.unit_cost,
-        movement.debit,
-        movement.credit,
-        movement.final_balance,
-      ];
-      movementRows.push(row);
-    });
-    const balanceRows: any[][] = [];
-    tableBalance.forEach((balance) => {
-      const row = [
-        balance.available_stock,
-        balance.unit_cost,
-        balance.final_balance,
-      ];
-      balanceRows.push(row);
-    });
-    return [
-      ...headersMovement,
-      ...movementRows,
-      ...headersBalance,
-      ...balanceRows,
-    ];
-  }
-  private applyWorksheetFormatting(
-    worksheet: XLSX.WorkSheet,
-    longArray: number
-  ): void {
-    // Define range
-    worksheet['!ref'] = XLSX.utils.encode_range({
-      s: { c: 0, r: 0 },
-      e: { c: 6, r: longArray - 1 },
-    });
 
-    // Merge cells for main headers
-    worksheet['!merges'] = [
-      //Each object is as cell, 's' is the start cell and 'e' is the end cell, and 'r' is the row, 'c' is the column
-      { s: { r: 0, c: 0 }, e: { r: 0, c: 1 } }, // ITEM
-      { s: { r: 0, c: 2 }, e: { r: 0, c: 4 } }, // UNIT PRICE
-      { s: { r: 0, c: 5 }, e: { r: 0, c: 6 } }, // VALUES
-    ];
-
-    // Configure column widths
-    worksheet['!cols'] = [
-      { wch: 20 }, // ENTRIES
-      { wch: 20 }, // EXITS
-      { wch: 20 }, // STOCK
-      { wch: 20 }, // ACQUISITION
-      { wch: 20 }, // DEBIT
-      { wch: 20 }, // CREDIT
-      { wch: 20 }, // BALANCE
-    ];
+  private createStructuredData(tableMovements: JSONMovementXLSX[], tableBalance: JSONBalanceXLSX[]): any[] {
+    const builder = new XLSXMatrixBuilder();
+    builder.setHeaders(['', '', 'ITEM', '', '', 'VALUES', '', '', '', '']);
+    builder.setHeaders(['DATE', 'CONCEPT', 'ENTRIES', 'EXITS', 'STOCK', 'ACQUISITION', 'DEBIT', 'CREDIT', 'BALANCE', 'CREATED BY']);
+    tableMovements.forEach(movement => {
+      builder.setRow(Object.values(movement));
+    })
+    builder.setSpacing();
+    builder.setHeaders(['AVAILABLE STOCK', 'UNIT PRICE', 'FINAL BALANCE']);
+    tableBalance.forEach(movement => {
+      builder.setRow(Object.values(movement));
+    })
+    return builder.getMatrix();
   }
-  private applyWorksheetStyling(worksheet: XLSX.WorkSheet, columnLength: number, rowLength: number): void {
-    console.log(columnLength);
-    const headerStyle = {
-      fill: {
-        fgColor: { rgb: '4472C4' }, // Azul
-      },
-      font: {
-        color: { rgb: 'FFFFFF' }, // Texto blanco
-        bold: true,
-      },
-      alignment: {
-        horizontal: 'center',
-      },
-    };
-    const subHeaderStyle = {
-      fill: {
-        fgColor: { rgb: 'D9E2F3' }, // Azul claro
-      },
-      font: {
-        bold: true,
-      },
-      alignment: {
-        horizontal: 'center',
-      },
-    };
-    // Iterate over the columns
-    for(let col = 0; col <= columnLength; col++ ){
-      const cellAddress = XLSX.utils.encode_cell({ c: col, r: 0 });
-      if (!worksheet[cellAddress]) {
-        worksheet[cellAddress] = {};
-      }
-      worksheet[cellAddress].s = headerStyle;
+
+  private applyWorksheetFormatting(worksheet: XLSX.WorkSheet, xLength: number, yLength: number): void {
+    const builder = new XLSXFormattingBuilder();
+    builder.setRange(0, 0, yLength - 1, xLength - 1);
+    builder.setMergedCell(0, 2, 0, 4);
+    builder.setMergedCell(0, 5, 0, 8);
+    for(let i = 0; i < xLength; i++){
+      builder.setColumnWidth(20);
     }
-    // Iterate over the sub-header row
-    for(let col = 0; col <= columnLength; col++ ){
-      const cellAddress = XLSX.utils.encode_cell({ c: col, r: 1 });
-      if (!worksheet[cellAddress]) {
-        worksheet[cellAddress] = {};
+    const config = builder.getConfig();
+    // Define range
+    worksheet['!ref'] = XLSX.utils.encode_range(config.range!);
+    // Merge cells for main headers
+    worksheet['!merges'] = config.mergedCells;
+    // Configure column widths
+    worksheet['!cols'] = config.columnWidths;
+  }
+
+  private applyWorksheetStyling(worksheet: XLSX.WorkSheet, xLength: number, yLength: number): void {
+    // Create styles for headers and sub-headers
+    const director = new XLSXStyleDirector();
+    const headerStyle = director.getHeaderStyle();
+    const subHeaderStyle = director.getSubHeaderStyle();
+    const dataRowStyle = director.getDataRowStyle();
+    const strategy = new XLSXStylingStrategy(dataRowStyle);
+    for(let row = 0; row < yLength; row++){
+      this.applyStyleRow(worksheet, strategy, row, xLength);
+    }
+    strategy.setStyling(headerStyle);
+    this.applyStyleRow(worksheet, strategy, 0, xLength);
+    strategy.setStyling(subHeaderStyle);
+    this.applyStyleRow(worksheet, strategy, 1, xLength);
+  }
+  private applyStyleRow(Worksheet: XLSX.WorkSheet, strategy: XLSXStylingStrategy, numRow: number, nColumns: number): void{
+    for(let col = 0; col <= nColumns; col++){
+      const cellAddress = XLSX.utils.encode_cell({c: col, r: numRow});
+      if(!Worksheet[cellAddress]){
+        Worksheet[cellAddress] = {};
       }
-      worksheet[cellAddress].s = subHeaderStyle;
+      strategy.applyStyle(Worksheet[cellAddress]);
     }
   }
 }

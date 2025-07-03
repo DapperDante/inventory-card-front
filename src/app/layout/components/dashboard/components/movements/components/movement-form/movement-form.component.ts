@@ -55,7 +55,6 @@ export class MovementFormComponent implements OnInit {
   }
   close() {
     this.visible.set(false);
-    console.log(this.movementForm.get('concept')?.value);
   }
   save() {
     this.confirmationService.confirm({

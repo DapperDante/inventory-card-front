@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { MovementService } from '../../../../../service/movement.service';
 import { forkJoin, map, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { FormTriggerComponent } from '../form-trigger/form-trigger.component';
 import { TableModule } from 'primeng/table';
 import { MovementAdapter } from '../../../../../class/adapter/movement-adapter';
 import { MovementFormComponent } from './components/movement-form/movement-form.component';
@@ -13,12 +12,13 @@ import {
   TableMovement,
 } from '../../../../../interface/util.interface';
 import { FileService } from '../../../../../service/file.service';
+import { FlexibleFormTriggerComponent } from '../../util/flexible-form-trigger/flexible-form-trigger.component';
 
 @Component({
   selector: 'app-movements',
   imports: [
     CommonModule,
-    FormTriggerComponent,
+    FlexibleFormTriggerComponent,
     TableModule,
     MovementFormComponent,
     ButtonModule,

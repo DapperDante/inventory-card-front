@@ -30,6 +30,15 @@
         </tr>
       </ng-template>
     </p-table>
+    <app-flexible-form-trigger [(visible)]="movementFormVisible">
+      <ng-template #formTemplate>
+        <app-movement-form
+          [isEditMode]="false"
+          [(visible)]="movementFormVisible"
+          (form)="addMovement($event)"
+        />
+      </ng-template>
+    </app-flexible-form-trigger>
     <p-table [value]="table[1]" styleClass="p-5" [size]="'small'" showGridlines>
       <ng-template #header>
         <tr>
@@ -50,7 +59,7 @@
       <div class="col-fixed">
         <p-button
           (onClick)="exportToCSV(table[0])"
-          label="Export to CSV"
+          label="Export to .CSV"
           styleClass="border-round"
           [disabled]="!table[0].length"
         />
@@ -58,20 +67,11 @@
       <div class="col-fixed">
         <p-button
           (onClick)="exportToExcel(table[0], table[1])"
-          label="Export to Excel"
+          label="Export to .XLSX"
           styleClass="border-round"
           [disabled]="!table[0].length"
         />
       </div>
     </div>
   }
-  <app-form-trigger [(visible)]="movementFormVisible">
-    <ng-template #formTemplate>
-      <app-movement-form
-        [isEditMode]="false"
-        [(visible)]="movementFormVisible"
-        (form)="addMovement($event)"
-      />
-    </ng-template>
-  </app-form-trigger>
 </div>

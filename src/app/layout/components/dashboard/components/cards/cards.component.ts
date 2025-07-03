@@ -8,7 +8,7 @@ import { ItemGrid } from '../../../../../interface/util.interface';
 import { map, Observable } from 'rxjs';
 import { CardAdapter } from '../../../../../class/adapter/card-adapter';
 import { CommonModule } from '@angular/common';
-import { FormTriggerComponent } from '../form-trigger/form-trigger.component';
+import { FormTriggerComponent } from '../../util/form-trigger/form-trigger.component';
 
 @Component({
   selector: 'app-cards',

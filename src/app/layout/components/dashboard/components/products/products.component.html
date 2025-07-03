@@ -1,8 +1,19 @@
 @if(products$ | async; as products){
-  <app-items-grid [items]="products" (itemSelected)="accessProduct($event)"/>
+  @if(products.length > 0) {
+    <app-items-grid [items]="products" (itemSelected)="accessProduct($event)" />
+  } @else {
+    <div class="min-h-screen flex flex-column justify-content-center align-items-center opacity-60">
+      <div class="bg-center w-8rem h-8rem" style="background: url('product.svg')"></div>
+      <p class="block text-3xl">Add a product to get started!</p>
+    </div>
+  }
 }
 <app-form-trigger [(visible)]="productFormVisible">
   <ng-template #formTemplate>
-    <app-product-form [isEditMode]="false" [(visible)]="productFormVisible" (form)="addProduct($event)"/>
+    <app-product-form
+      [isEditMode]="false"
+      [(visible)]="productFormVisible"
+      (form)="addProduct($event)"
+    />
   </ng-template>
 </app-form-trigger>

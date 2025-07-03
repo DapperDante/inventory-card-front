@@ -11,7 +11,7 @@ import { ItemsGridComponent } from "../items-grid/items-grid.component";
 import { map } from 'rxjs';
 import { CompanyAdapter } from '../../../../../class/adapter/company-adapter';
 import { ItemGrid } from '../../../../../interface/util.interface';
-import { FormTriggerComponent } from '../form-trigger/form-trigger.component';
+import { FormTriggerComponent } from '../../util/form-trigger/form-trigger.component';
 
 @Component({
   selector: 'app-companies',
