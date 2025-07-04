@@ -72,6 +72,14 @@
           [disabled]="!table[0].length"
         />
       </div>
+      <div class="col-fixed">
+        <p-button
+          (onClick)="exportToPDF(table[0], table[1])"
+          label="Export to .PDF"
+          styleClass="border-round"
+          [disabled]="!table[0].length"
+        />
+      </div>
     </div>
   }
 </div>

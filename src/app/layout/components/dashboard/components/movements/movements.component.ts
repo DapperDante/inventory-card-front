@@ -101,6 +101,9 @@ export class MovementsComponent {
     this.fileService.exportTableToCSV(data);
   }
   exportToExcel(data: TableMovement[], tableBalance: TableBalance[]) {
-    this.fileService.exportTableToXLSX(data, tableBalance);
+    this.fileService.exportTableMovementsToXLSX(data, tableBalance);
+  }
+  exportToPDF(data: TableMovement[], tableBalance: TableBalance[]) {
+    this.fileService.exportTableMovementsToPDF(data, tableBalance);
   }
 }
