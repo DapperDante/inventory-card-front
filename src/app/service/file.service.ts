@@ -1,17 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  JSONBalanceXLSX,
-  JSONMovementXLSX,
-  TableBalance,
-  TableMovement,
-} from '../interface/util.interface';
+import { TableBalance, TableMovement } from '../interface/util.interface';
 import { FileAdapter } from '../class/adapter/file-adapter';
 import * as Papa from 'papaparse';
-import * as XLSX from 'xlsx-js-style';
-import { XLSXMatrixBuilder } from '../class/builder/xlsx-matrix-builder';
-import { XLSXFormattingBuilder } from '../class/builder/xlsx-formatting-builder';
-import { XLSXStylingStrategy } from '../class/strategy/xlsx-styling-strategy';
-import { XLSXStyleDirector } from '../class/director/xlsx-style-director';
 import { MovementsExportXLSXTemplate } from '../class/template/movements-export-xlsx-template';
 import { MovementsExportPdfTemplate } from '../class/template/movements-export-pdf-template';
 
@@ -29,10 +19,16 @@ export class FileService {
     a.click();
     window.URL.revokeObjectURL(url);
   }
-  exportTableMovementsToXLSX(tableMovements: TableMovement[], tableBalance: TableBalance[]) {
+  exportTableMovementsToXLSX(
+    tableMovements: TableMovement[],
+    tableBalance: TableBalance[]
+  ) {
     new MovementsExportXLSXTemplate(tableMovements, tableBalance).export();
   }
-  exportTableMovementsToPDF(tableMovements: TableMovement[], tableBalance: TableBalance[]) {
+  exportTableMovementsToPDF(
+    tableMovements: TableMovement[],
+    tableBalance: TableBalance[]
+  ) {
     new MovementsExportPdfTemplate(tableMovements, tableBalance).export();
   }
 }
