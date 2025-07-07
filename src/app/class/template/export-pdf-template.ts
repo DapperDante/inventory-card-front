@@ -11,7 +11,9 @@ export abstract class ExportPdfTemplate {
       format: this.format,
     });
     this.applyFormatting(doc);
+    this.applyStyling(doc);
     doc.save(`${this.name}.pdf`);
   }
   abstract applyFormatting(doc: jsPDF): void;
+  abstract applyStyling(doc: jsPDF): void;
 }

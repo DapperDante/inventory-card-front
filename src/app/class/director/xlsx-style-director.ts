@@ -1,32 +1,22 @@
 import { XLSXStyleBuilder } from "../builder/xlsx-style-builder";
 
 export class XLSXStyleDirector{
-  private builder: XLSXStyleBuilder;
-  constructor(){
-    this.builder = new XLSXStyleBuilder();
+  buildHeaderStyle(builder: XLSXStyleBuilder){
+    builder.setForegroundColor('5E42CA');
+    builder.setFontColor('000000');
+    builder.setFontBold();
+    builder.setBorderAll('thin', '000000');
+    builder.setHorizontal('center');
   }
-  getHeaderStyle(){
-    this.builder.reset();
-    this.builder.setForegroundColor('5E42CA');
-    this.builder.setFontColor('000000');
-    this.builder.setFontBold();
-    this.builder.setBorderAll('thin', '000000');
-    this.builder.setHorizontal('center');
-    return this.builder.getStyle();
+  buildSubHeaderStyle(builder: XLSXStyleBuilder){
+    builder.setForegroundColor('8E73E8');
+    builder.setFontColor('000000');
+    builder.setHorizontal('center');
+    builder.setBorderAll('thin', '000000');
+    builder.setFontBold();
   }
-  getSubHeaderStyle(){
-    this.builder.reset();
-    this.builder.setForegroundColor('8E73E8');
-    this.builder.setFontColor('000000');
-    this.builder.setHorizontal('center');
-    this.builder.setBorderAll('thin', '000000');
-    this.builder.setFontBold();
-    return this.builder.getStyle();
-  }
-  getDataRowStyle(){
-    this.builder.reset();
-    this.builder.setBorderAll('thin', '000000');
-    this.builder.setHorizontal('center');
-    return this.builder.getStyle();
+  buildDataRowStyle(builder: XLSXStyleBuilder){
+    builder.setBorderAll('thin', '000000');
+    builder.setHorizontal('center');
   }
 }

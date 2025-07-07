@@ -1,7 +1,7 @@
 import { TableBalance, TableMovement } from '../../interface/util.interface';
-import { FileAdapter } from '../adapter/file-adapter';
 import { XLSXFormattingBuilder } from '../builder/xlsx-formatting-builder';
 import { XLSXMatrixBuilder } from '../builder/xlsx-matrix-builder';
+import { XLSXStyleBuilder } from '../builder/xlsx-style-builder';
 import { XLSXStyleDirector } from '../director/xlsx-style-director';
 import { XLSXStylingStrategy } from '../strategy/xlsx-styling-strategy';
 import { ExportXLSXTemplate } from './export-xlsx-template';
@@ -17,10 +17,6 @@ export class MovementsExportXLSXTemplate extends ExportXLSXTemplate {
     this.nameWorkbook = 'Movements.xlsx';
     this.movements = movements;
     this.balances = balances;
-  }
-  prepareData(): void {
-    const movements = FileAdapter.toXLSXMovements(this.movements);
-    const balances = FileAdapter.toXLSXBalances(this.balances);
   }
   createStructuredData(): any[][] {
     const builder = new XLSXMatrixBuilder();
@@ -38,7 +34,18 @@ export class MovementsExportXLSXTemplate extends ExportXLSXTemplate {
       'CREATED BY',
     ]);
     this.movements.forEach((movement) => {
-      builder.setRow(Object.values(movement));
+      builder.setRow([
+        movement.date,
+        movement.concept,
+        movement.income,
+        movement.expense,
+        movement.stock,
+        movement.unit_cost,
+        movement.debit,
+        movement.credit,
+        movement.final_balance,
+        movement.created_by
+      ]);
     });
     builder.setSpacing();
     builder.setHeaders(['AVAILABLE STOCK', 'UNIT PRICE', 'FINAL BALANCE']);
@@ -70,9 +77,15 @@ export class MovementsExportXLSXTemplate extends ExportXLSXTemplate {
     const xLength = data[0].length;
     // Create styles for headers and sub-headers
     const director = new XLSXStyleDirector();
-    const headerStyle = director.getHeaderStyle();
-    const subHeaderStyle = director.getSubHeaderStyle();
-    const dataRowStyle = director.getDataRowStyle();
+    const builder = new XLSXStyleBuilder();
+    director.buildHeaderStyle(builder);
+    const headerStyle = builder.getStyle();
+    builder.reset();
+    director.buildSubHeaderStyle(builder);
+    const subHeaderStyle = builder.getStyle();
+    builder.reset();
+    director.buildDataRowStyle(builder);
+    const dataRowStyle = builder.getStyle();
     const strategy = new XLSXStylingStrategy(dataRowStyle);
     for (let row = 0; row < yLength; row++) {
       this.applyStyleRow(worksheet, strategy, row, xLength);

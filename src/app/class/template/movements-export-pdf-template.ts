@@ -2,6 +2,8 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { ExportPdfTemplate } from './export-pdf-template';
 import { TableBalance, TableMovement } from '../../interface/util.interface';
+import { PDFStyleDirector } from '../director/pdf-style-director';
+import { PDFStyleBuilder } from '../builder/pdf-style-builder';
 
 export class MovementsExportPdfTemplate extends ExportPdfTemplate {
   name = 'Movements Report';
@@ -10,24 +12,29 @@ export class MovementsExportPdfTemplate extends ExportPdfTemplate {
   format: [number, number] = [210, 297]; // A4 size in mm
   movements: TableMovement[];
   balance: TableBalance[];
+  private styleDirector: PDFStyleDirector;
+  private styleBuilder: PDFStyleBuilder;
   constructor(movements: TableMovement[], balance: TableBalance[]) {
     super();
     this.movements = movements;
     this.balance = balance;
+    this.styleDirector = new PDFStyleDirector();
+    this.styleBuilder = new PDFStyleBuilder();
   }
   applyFormatting(doc: jsPDF): void {
-    doc.text('Movements Report', 10, 10);
+    this.styleDirector.getHeaderStyle(this.styleBuilder);
+    const headStyles = this.styleBuilder.getStyle();
+    this.styleBuilder.reset();
+    this.styleDirector.getDataRowStyle(this.styleBuilder);
+    const bodyStyles = this.styleBuilder.getStyle();
+    this.styleBuilder.reset();
+    doc.text('Movements Report', 105, 10, {
+      align: 'center',
+    });
     autoTable(doc, {
-      startY: 10,
-      headStyles: {
-        fillColor: '#7C3AED', // Morado similar al de la aplicación
-        lineColor: '#000000',
-        lineWidth: 0.1
-      },
-      bodyStyles: {
-        lineColor: '#000000',
-        lineWidth: 0.1
-      },
+      startY: 20,
+      headStyles,
+      bodyStyles,
       head: [
         [
           'Date',
@@ -54,6 +61,8 @@ export class MovementsExportPdfTemplate extends ExportPdfTemplate {
       ]),
       theme: 'grid',
     });
-    // Additional formatting can be added here
+  }
+  applyStyling(doc: jsPDF): void {
+
   }
 }
