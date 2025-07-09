@@ -21,28 +21,32 @@ export class XLSXFormattingBuilder {
   constructor(){
     this.reset();
   }
-  reset(): void{
+  reset(): this {
     this.config = {
       mergedCells: [],
       columnWidths: [],
     };
+    return this;
   }
-  setRange(startRow: number, startCol: number, endRow: number, endCol: number): void {
+  setRange(startRow: number, startCol: number, endRow: number, endCol: number): this {
     this.config.range = {
       s: { r: startRow, c: startCol },
       e: { r: endRow, c: endCol },
     };
+    return this;
   }
-  setMergedCell(startRow: number, startCol: number, endRow: number, endCol: number): void {
+  setMergedCell(startRow: number, startCol: number, endRow: number, endCol: number): this {
     this.config.mergedCells.push({
       s: { r: startRow, c: startCol },
       e: { r: endRow, c: endCol },
     });
+    return this;
   }
-  setColumnWidth(width: number): void {
+  setColumnWidth(width: number): this {
     this.config.columnWidths.push({
       wch: width,
     });
+    return this;
   }
   getConfig(): ConfigXLSXFormatting {
     return this.config;

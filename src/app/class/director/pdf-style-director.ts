@@ -1,24 +1,31 @@
-import { PDFStyleBuilder } from "../builder/pdf-style-builder";
+import { PDFStyleBuilder } from '../builder/pdf-style-builder';
 
-export class PDFStyleDirector{
-  getHeaderStyle(builder: PDFStyleBuilder){
-    builder.setFillColor('#800080');
-    builder.setLineColor('#000000');
-    builder.setVertical('middle');
-    builder.setHorizontal('center');
-    builder.setLineWidth(0.1);
+export class PDFStyleDirector {
+  buildH1Style(builder: PDFStyleBuilder) {
+    builder
+      .setBold()
+      .setFontSize(22)
+      .setAlignment('center')
+      .setMarginBottom(10)
+      .setMarginTop(10)
+      .setColor('#000000');
   }
-  getSubHeaderStyle(builder: PDFStyleBuilder){
-    builder.setFillColor('#b266b2');
-    builder.setLineColor('#000000');
-    builder.setVertical('middle');
-    builder.setHorizontal('center');
-    builder.setLineWidth(0.1);
+  buildH2Style(builder: PDFStyleBuilder) {
+    builder
+      .setFontSize(16)
+      .setBold()
+      .setAlignment('center')
+      .setMarginBottom(8)
+      .setMarginTop(8)
+      .setColor('#000000');
   }
-  getDataRowStyle(builder: PDFStyleBuilder){
-    builder.setVertical('middle');
-    builder.setHorizontal('center');
-    builder.setLineColor('#000000');
-    builder.setLineWidth(0.1);
+  buildH3Style(builder: PDFStyleBuilder) {
+    builder
+      .setFontSize(14)
+      .setBold()
+      .setAlignment('center')
+      .setMarginBottom(6)
+      .setMarginTop(6)
+      .setColor('#000000');
   }
 }

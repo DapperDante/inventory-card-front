@@ -1,7 +1,7 @@
-import { Color, FontType, HAlignType, LineWidths, Styles, VAlignType } from 'jspdf-autotable';
+import { Alignment, Style } from 'pdfmake/interfaces';
 
 export class PDFStyleBuilder {
-  private style!: Partial<Styles>;
+  private style!: Style;
 
   constructor() {
     this.reset();
@@ -11,39 +11,67 @@ export class PDFStyleBuilder {
     this.style = {};
   }
 
-  setFont(font: FontType): void {
+  setFont(font: string): this {
     this.style.font = font;
+    return this;
   }
 
-  setFontSize(size: number): void {
+  setFontSize(size: number): this {
     this.style.fontSize = size;
+    return this;
   }
 
-  setTextColor(color: Color): void {
-    this.style.textColor = color;
+  setBold(): this {
+    this.style.bold = true;
+    return this;
   }
 
-  setFillColor(color: Color): void {
-    this.style.fillColor = color;
+  setItalic(): this {
+    this.style.italics = true;
+    return this;
   }
 
-  setLineColor(color: Color): void {
-    this.style.lineColor = color;
+  setColor(color: string): this {
+    this.style.color = color;
+    return this;
   }
 
-  setLineWidth(width: number | Partial<LineWidths>) {
-    this.style.lineWidth = width;
+  setAlignment(alignment: Alignment): this {
+    this.style.alignment = alignment;
+    return this;
   }
 
-  setVertical(alignment: VAlignType){
-    this.style.valign = alignment;
+  setBackgroundColor(color: string): this {
+    this.style.background = color;
+    return this;
   }
 
-  setHorizontal(alignment: HAlignType){
-    this.style.halign = alignment;
+  setMargin(margin: number): this {
+    this.style.margin = margin;
+    return this;
   }
 
-  getStyle(): Partial<Styles> {
+  setMarginTop(margin: number): this {
+    this.style.marginTop = margin;
+    return this;
+  }
+
+  setMarginBottom(margin: number): this {
+    this.style.marginBottom = margin;
+    return this;
+  }
+
+  setMarginLeft(margin: number): this {
+    this.style.marginLeft = margin;
+    return this;
+  }
+
+  setMarginRight(margin: number): this {
+    this.style.marginRight = margin;
+    return this;
+  }
+
+  getStyle(): any {
     return this.style;
   }
 }
