@@ -1,93 +1,85 @@
 <div class="p-3 relative">
-@if(table$ | async; as table){
-    <!-- <p-table [value]="table[0]" styleClass="p-5" [size]="'small'" showGridlines>
-      <ng-template #header>
-        <tr>
-          <th>Date</th>
-          <th>Movement Concept</th>
-          <th>Income</th>
-          <th>Expense</th>
-          <th>Stock</th>
-          <th>Unit Cost</th>
-          <th>Debit</th>
-          <th>Credit</th>
-          <th>Final Balance</th>
-          <th>Created By</th>
-        </tr>
-      </ng-template>
-      <ng-template #body let-movement>
-        <tr>
-          <td>{{ movement.date }}</td>
-          <td>{{ movement.concept }}</td>
-          <td>{{ movement.income }}</td>
-          <td>{{ movement.expense }}</td>
-          <td>{{ movement.stock }}</td>
-          <td>{{ movement.unit_cost | currency : "USD" }}</td>
-          <td>{{ movement.debit | currency : "USD" }}</td>
-          <td>{{ movement.credit | currency : "USD" }}</td>
-          <td>{{ movement.final_balance | currency : "USD" }}</td>
-          <td>{{ movement.created_by }}</td>
-        </tr>
-      </ng-template>
-    </p-table>
-    <app-flexible-form-trigger [(visible)]="movementFormVisible">
-      <ng-template #formTemplate>
-        <app-movement-form
-          [isEditMode]="false"
-          [(visible)]="movementFormVisible"
-          (form)="addMovement($event)"
-        />
-      </ng-template>
-    </app-flexible-form-trigger>
-    <p-table [value]="table[1]" styleClass="p-5" [size]="'small'" showGridlines>
-      <ng-template #header>
-        <tr>
-          <th>Available stock</th>
-          <th>Unit cost</th>
-          <th>Final balance</th>
-        </tr>
-      </ng-template>
-      <ng-template #body let-balance>
-        <tr>
-          <td>{{ balance.available_stock }}</td>
-          <td>{{ balance.unit_cost | currency: "USD" }}</td>
-          <td>{{ balance.final_balance | currency: "USD" }}</td>
-        </tr>
-      </ng-template>
-    </p-table>
-    <div class="grid grid-nogutter gap-2 justify-content-center">
-      <div class="col-fixed">
-        <p-button
-          (onClick)="exportToCSV(table[0])"
-          label="Export to .CSV"
-          styleClass="border-round"
-          [disabled]="!table[0].length"
-        />
-      </div>
-      <div class="col-fixed">
-        <p-button
-          (onClick)="exportToExcel(table[0], table[1])"
-          label="Export to .XLSX"
-          styleClass="border-round"
-          [disabled]="!table[0].length"
-        />
-      </div>
-      <div class="col-fixed">
-        <p-button
-          (onClick)="exportToPDF(table[0], table[1])"
-          label="Export to .PDF"
-          styleClass="border-round"
-          [disabled]="!table[0].length"
-        />
-      </div>
-    </div> -->
-    <div class="preview-frame" *ngIf="pdfUrl">
-        <iframe
-          [src]="pdfUrl"
-          width="100%"
-          height="600px"
-          frameborder="0">
-        </iframe>
-      </div>
+  @if(table$ | async; as table){
+  <p-table [value]="table[0]" styleClass="p-5" [size]="'small'" showGridlines>
+    <ng-template #header>
+      <tr>
+        <th>Date</th>
+        <th>Movement Concept</th>
+        <th>Income</th>
+        <th>Expense</th>
+        <th>Stock</th>
+        <th>Unit Cost</th>
+        <th>Debit</th>
+        <th>Credit</th>
+        <th>Final Balance</th>
+        <th>Created By</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-movement>
+      <tr>
+        <td>{{ movement.date }}</td>
+        <td>{{ movement.concept }}</td>
+        <td>{{ movement.income }}</td>
+        <td>{{ movement.expense }}</td>
+        <td>{{ movement.stock }}</td>
+        <td>{{ movement.unit_cost | currency : "USD" }}</td>
+        <td>{{ movement.debit | currency : "USD" }}</td>
+        <td>{{ movement.credit | currency : "USD" }}</td>
+        <td>{{ movement.final_balance | currency : "USD" }}</td>
+        <td>{{ movement.created_by }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <app-flexible-form-trigger [(visible)]="movementFormVisible">
+    <ng-template #formTemplate>
+      <app-movement-form
+        [isEditMode]="false"
+        [(visible)]="movementFormVisible"
+        (form)="addMovement($event)"
+      />
+    </ng-template>
+  </app-flexible-form-trigger>
+  <p-table [value]="table[1]" styleClass="p-5" [size]="'small'" showGridlines>
+    <ng-template #header>
+      <tr>
+        <th>Available stock</th>
+        <th>Unit cost</th>
+        <th>Final balance</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-balance>
+      <tr>
+        <td>{{ balance.available_stock }}</td>
+        <td>{{ balance.unit_cost | currency : "USD" }}</td>
+        <td>{{ balance.final_balance | currency : "USD" }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <div class="grid grid-nogutter gap-2 justify-content-center">
+    <div class="col-fixed">
+      <p-button
+        (onClick)="exportToCSV(table[0])"
+        label="Export to .CSV"
+        styleClass="border-round"
+        [disabled]="!table[0].length"
+      />
+    </div>
+    <div class="col-fixed">
+      <p-button
+        (onClick)="exportToExcel(table[0], table[1])"
+        label="Export to .XLSX"
+        styleClass="border-round"
+        [disabled]="!table[0].length"
+      />
+    </div>
+    <div class="col-fixed">
+      <p-button
+        (onClick)="exportToPDF(table[0], table[1])"
+        label="Export to .PDF"
+        styleClass="border-round"
+        [disabled]="!table[0].length"
+      />
+    </div>
+  </div>
   }
 </div>

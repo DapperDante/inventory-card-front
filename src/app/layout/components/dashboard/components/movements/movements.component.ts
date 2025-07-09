@@ -14,7 +14,6 @@ import {
 import { FileService } from '../../../../../service/file.service';
 import { FlexibleFormTriggerComponent } from '../../util/flexible-form-trigger/flexible-form-trigger.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { LetterheadExportPdfTemplate } from '../../../../../class/template/letter-head-pdf-template';
 
 @Component({
   selector: 'app-movements',
@@ -35,11 +34,7 @@ export class MovementsComponent {
   table$!: Observable<[TableMovement[], TableBalance[]]>;
   movementFormVisible = false;
   operation$: Observable<void> | undefined;
-  constructor(private sanitizer: DomSanitizer) {}
   async ngOnInit() {
-    const pdfTemplate = new LetterheadExportPdfTemplate();
-    await pdfTemplate.export();
-    this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(pdfTemplate.preview());
     this.updateTable();
   }
   addMovement(data: { quantity: number; unitCost: number; concept: any }) {
