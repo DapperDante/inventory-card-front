@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withViewTransitions } from '@angular/router';
+import { provideRouter, withHashLocation, withViewTransitions } from '@angular/router';
 import { providePrimeNG } from 'primeng/config';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
@@ -30,6 +30,6 @@ export const appConfig: ApplicationConfig = {
     CookieHandleService,
     ConfirmationService,
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes, withViewTransitions()),
+    provideRouter(routes, withHashLocation()),
   ]
 };
