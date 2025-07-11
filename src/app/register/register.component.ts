@@ -22,6 +22,31 @@ import {
     ReactiveFormsModule,
   ],
   templateUrl: './register.component.html',
+  styles: [`
+    .container {
+      width: 80vw;
+    }
+    @media (min-width: 576px) {
+      .container {
+        width: 80vw;
+      }
+    }
+    @media (min-width: 768px){
+      .container{
+        width: 60vw;
+      }
+    }
+    @media (min-width: 992px){
+      .container{
+        width: 70vw;
+      }
+    }
+    @media (min-width: 1200px){
+      .container{
+        width: 50vw;
+      }
+    }
+  `]
 })
 export class RegisterComponent {
   private auth = inject(AuthService);
