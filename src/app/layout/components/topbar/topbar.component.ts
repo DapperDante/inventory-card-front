@@ -40,20 +40,20 @@ export class TopbarComponent implements OnInit {
       // },
     ];
     this.itemsAvatar = [
-      {
-        label: 'Profile',
-        icon: 'pi pi-user',
-        command: () => {
-          // this.route.navigate(['/profile']);
-        },
-      },
-      {
-        label: 'Settings',
-        icon: 'pi pi-cog',
-        command: () => {
-          // this.route.navigate(['/settings']);
-        },
-      },
+      // {
+      //   label: 'Profile',
+      //   icon: 'pi pi-user',
+      //   command: () => {
+      //     // this.route.navigate(['/profile']);
+      //   },
+      // },
+      // {
+      //   label: 'Settings',
+      //   icon: 'pi pi-cog',
+      //   command: () => {
+      //     // this.route.navigate(['/settings']);
+      //   },
+      // },
       {
         label: 'Logout',
         icon: 'pi pi-sign-out',

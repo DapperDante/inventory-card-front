@@ -13,7 +13,7 @@ import {
 } from '../../../../../interface/util.interface';
 import { FileService } from '../../../../../service/file.service';
 import { FlexibleFormTriggerComponent } from '../../util/flexible-form-trigger/flexible-form-trigger.component';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-movements',

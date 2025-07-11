@@ -3,70 +3,70 @@
   style="background: var(--p-primary-1000)"
 >
   <div
-    class="grid nested-grid grid-nogutter h-30rem border-round-2xl overflow-hidden shadow-7"
-    style="width: 60rem"
+    class="grid nested-grid grid-nogutter border-round-2xl overflow-hidden shadow-7"
+    style="width: 80vw"
   >
-    <div class="col-7 h-full p-7" style="background: var(--p-primary-1000)">
+    <div class="col-12 lg:col-7 h-10rem lg:h-full p-3 lg:p-7" style="background: var(--p-primary-1000)">
       <img
         src="login.svg"
         alt="Login Image"
         class="h-full w-full object-cover"
       />
     </div>
-    <div class="col-5 h-full surface-700">
+    <div class="col-12 lg:col-5 md:h-full surface-700">
       <div
-        class="grid nested-grid grid-nogutter p-4 bg-white justify-content-center"
+        class="grid nested-grid grid-nogutter p-4 bg-white justify-content-center align-items-center md:w-20rem"
       >
-        <div class="col-12 h-4rem">
-          <p class="text-2xl m-0 text-primary-900">
+        <div class="col-12 lg:h-4rem">
+          <p class="lg:text-2xl m-0 text-primary-900">
             Hello!<br />
-            <span class="text-3xl font-bold">Welcome back</span>
+            <span class="lg:text-3xl font-bold">Welcome back</span>
           </p>
         </div>
-        <div class="col-9 h-23rem">
+        <div class="col-12 sm:col-6 lg:col-9">
           <form
             [formGroup]="loginForm"
             (ngSubmit)="login()"
-            class="grid grid-nogutter h-full justify-content-center"
+            class="grid grid-nogutter lg:h-full justify-content-center"
           >
             <div class="col-12">
-              <p class="text-color text-center text-2xl">
+              <p class="text-color text-center lg:text-2xl">
                 <span class="text-primary-900 font-bold">Login </span>your
                 account
               </p>
             </div>
-            <div class="col-12">
+            <div class="col-12 mb-2">
               <input
                 pInputText
                 type="text"
                 placeholder="Username"
                 formControlName="username"
-                style="border-bottom: 1px solid"
-                class="surface-border"
+                style="border-bottom: 1px solid;"
+                class="surface-border w-full"
               />
             </div>
-            <div class="col-12">
+            <div class="col-12 mb-2">
               <p-password
                 [toggleMask]="true"
                 [feedback]="false"
                 placeholder="Password"
                 formControlName="password"
-                styleClass="border-bottom-1 surface-border"
+                styleClass="border-bottom-1 surface-border w-full"
               />
             </div>
-            <div class="col-12 text-right">
+            <!-- <div class="col-12 text-right">
               <p class="text-primary-900 cursor-pointer">forgot password?</p>
-            </div>
-            <div class="col-8">
+            </div> -->
+            <div class="col-8 lg:col-fixed w-10rem">
               <p-button
                 label="Login"
                 type="submit"
                 [disabled]="!loginForm.valid"
-                styleClass="w-10rem border-round"
+                styleClass="w-full border-round"
               />
             </div>
             <div class="col-12 text-center">
-              <p class="text-primary-900 cursor-pointer" routerLink="/register">
+              <p class="text-primary-900 cursor-pointer m-0 mt-2" routerLink="/register">
                 Create account
               </p>
             </div>
