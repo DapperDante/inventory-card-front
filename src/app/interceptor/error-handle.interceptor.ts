@@ -11,7 +11,7 @@ export const errorHandleInterceptor: HttpInterceptorFn = (req, next) => {
       if(req.context.get(IS_PUBLIC)) {
         return throwError(() => error);
       }
-      if(error.status === 401) {
+      if(error.status === 401 || error.status === 403) {
         authService.logout();
       }
       return throwError(() => error);

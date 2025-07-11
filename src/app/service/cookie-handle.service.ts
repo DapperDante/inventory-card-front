@@ -1,28 +1,42 @@
-import { inject, Injectable } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CookieHandleService {
   private cookie = inject(CookieService);
-  addToken(token: string): void{
-    if(this.hasToken()){
-      this.deleteToken();
-    }
-    this.cookie.set('token', token, {
-      expires: 1,
-      secure: true,
-      sameSite: 'Strict'
+  private tokenSignal = signal<string | null>(this.cookie.get('token'));
+  // Return the current token from the signal
+  token = computed(() => this.tokenSignal());
+  // Return a boolean indicating if the user is authenticated based on the presence of a token
+  isAuthenticated = computed(() => !!this.token());
+  constructor() {
+    effect(() => {
+      const token = this.tokenSignal();
+      if (token) {
+        this.removeToken();
+        this.addToken();
+      } else {
+        this.removeToken();
+      }
     });
   }
-  deleteToken(): void {
-    this.cookie.delete('token');
+  private addToken(){
+    this.cookie.set('token', this.token()!, {
+      expires: 1,
+      secure: true,
+      sameSite: 'Strict',
+      path: '/',
+    });
   }
-  getToken(): string {
-    return this.cookie.get('token');
+  private removeToken(){
+    this.cookie.delete('token', '/');
   }
-  hasToken(): boolean {
-    return this.cookie.check('token');
+  setToken(token: string): void {
+    this.tokenSignal.set(token);
+  }
+  clearToken(): void {
+    this.tokenSignal.set(null);
   }
 }

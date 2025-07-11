@@ -1,0 +1,11 @@
+<div class="m-4">
+  <div
+    style="background: var(--p-primary-1000)"
+    class="h-3rem w-3rem border-round-lg flex text-white justify-content-center align-items-center cursor-pointer hover:shadow-7 shadow-3 bottom-0 m-auto"
+    (click)="openForm()"
+  >
+    <i class="pi pi-plus text-xl"></i>
+  </div>
+</div>
+
+<ng-container *ngTemplateOutlet="formTemplate"></ng-container>

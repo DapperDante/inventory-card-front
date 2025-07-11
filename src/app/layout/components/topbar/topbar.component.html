@@ -2,7 +2,7 @@
   <p-menubar [model]="itemsTopbar">
     <ng-template #item let-item let-root="root">
       <a pRipple class="flex items-center p-menubar-item-link">
-        <span>{{ item.label }}</span>
+        <span class="text-white">{{ item.label }}</span>
         <p-badge
           *ngIf="item.badge"
           [ngClass]="{ 'ml-auto': !root, 'ml-2': root }"
@@ -29,7 +29,7 @@
           class="surface-border"
         />
         <div (click)="menu.toggle($event)" class="cursor-pointer">
-          <p-avatar image="user.svg" shape="circle"/>
+          <p-avatar image="user.svg" shape="circle" />
         </div>
       </div>
     </ng-template>

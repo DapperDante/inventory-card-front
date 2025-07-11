@@ -8,7 +8,7 @@ import { ItemGrid } from '../../../../../interface/util.interface';
 import { ProductAdapter } from '../../../../../class/adapter/product-adapter';
 import { CommonModule } from '@angular/common';
 import { ProductFormComponent } from './components/product-form/product-form.component';
-import { FormTriggerComponent } from "../form-trigger/form-trigger.component";
+import { FormTriggerComponent } from "../../util/form-trigger/form-trigger.component";
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({

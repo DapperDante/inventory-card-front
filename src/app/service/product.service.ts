@@ -29,7 +29,7 @@ export class ProductService {
       .pipe(
         tap((res) => {
           if (res.token) {
-            this.cookie.addToken(res.token);
+            this.cookie.setToken(res.token);
           }
         })
       );
@@ -51,7 +51,7 @@ export class ProductService {
       .pipe(
         tap((res) => {
           if (res.token) {
-            this.cookie.addToken(res.token);
+            this.cookie.setToken(res.token);
           }
         })
       );
