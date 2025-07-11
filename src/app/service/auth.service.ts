@@ -1,6 +1,6 @@
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { Observable, tap } from 'rxjs';
 import { CookieHandleService } from './cookie-handle.service';
 import { IS_PUBLIC } from '../token/http-context-token';

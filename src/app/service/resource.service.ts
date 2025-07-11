@@ -1,6 +1,6 @@
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { IS_PUBLIC } from '../token/http-context-token';
 import { ConceptsRequest, CurrenciesRequest, MethodsRequest } from '../interface/resource.interface';
 import { Observable } from 'rxjs';
