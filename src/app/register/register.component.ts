@@ -63,7 +63,7 @@ export class RegisterComponent {
           '',
           [
             Validators.required,
-            Validators.minLength(3),
+            Validators.minLength(10),
             Validators.maxLength(20),
           ],
         ],
@@ -76,7 +76,7 @@ export class RegisterComponent {
             Validators.maxLength(20),
           ],
         ],
-        confirmPassword: ['', [Validators.required]],
+        confirmPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
       },
       { validator: this.passwordMatchValidator }
     );
