@@ -46,8 +46,8 @@ export class LoginComponent {
 
   constructor() {
     this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
+      username: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(20)]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]]
     });
   }
 
