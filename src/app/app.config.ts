@@ -1,8 +1,7 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withHashLocation, withViewTransitions } from '@angular/router';
+import { ApplicationConfig, provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { provideRouter, withHashLocation } from '@angular/router';
 import { providePrimeNG } from 'primeng/config';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
 import { routes } from './app.routes';
 import MyPreset from '../mypreset';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
@@ -13,6 +12,7 @@ import { CookieHandleService } from './service/cookie-handle.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideExperimentalZonelessChangeDetection(),
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
@@ -29,7 +29,6 @@ export const appConfig: ApplicationConfig = {
     MessageService,
     CookieHandleService,
     ConfirmationService,
-    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withHashLocation()),
   ]
 };
