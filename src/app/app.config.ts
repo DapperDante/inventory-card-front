@@ -9,6 +9,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { backendInterceptor } from './interceptor/backend.interceptor';
 import { errorHandleInterceptor } from './interceptor/error-handle.interceptor';
 import { CookieHandleService } from './service/cookie-handle.service';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,6 +30,6 @@ export const appConfig: ApplicationConfig = {
     MessageService,
     CookieHandleService,
     ConfirmationService,
-    provideRouter(routes, withHashLocation()),
+    provideRouter(routes, withHashLocation()), provideClientHydration(withEventReplay()),
   ]
 };
